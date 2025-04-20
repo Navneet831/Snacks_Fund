@@ -11,7 +11,7 @@ st.set_page_config(page_title="Snacks Fund Dashboard", layout="wide", page_icon=
 
 def main():
     # File path hardcoded
-    file_path = r"C:\Users\Navneet Chaudhary\Desktop\Fund\Snacks_Fund.xlsx"
+    file_path = os.path.join(os.path.dirname(__file__), "Snacks_Fund.xlsx")
     
     # Check if file exists
     if not os.path.exists(file_path):
