@@ -54,8 +54,8 @@ def main():
             
             # Contributions by contributor
             st.subheader("Contributions by Contributor")
-            contrib_by_person = df.groupby('Contributors')['Contribution'].sum().reset_index()
-            contrib_by_person = contrib_by_person.sort_values('Contribution', ascending=False)
+            contrib_by_person = df[df['Contribution'] > 0].groupby('Contributors')['Contribution'].sum().reset_index()
+            contrib_by_person = contrib_by_person[contrib_by_person['Contribution'] > 0]
             fig_contrib = px.bar(contrib_by_person, x='Contributors', y='Contribution')
             st.plotly_chart(fig_contrib, use_container_width=True)
         
@@ -144,8 +144,8 @@ def display_summary_metrics(df):
         st.metric("Current Balance", f"₹{current_balance:,.2f}")
     
     with col4:
-        num_contributors = df['Contributors'].nunique()
-        st.metric("Number of Contributors", num_contributors)
+        valid_contributors = df[df['Contribution'] > 0]['Contributors'].nunique()
+        st.metric("Number of Contributors", valid_contributors)
 
 def wait_for_exit():
     """Wait for Enter key to exit when running from command line"""
